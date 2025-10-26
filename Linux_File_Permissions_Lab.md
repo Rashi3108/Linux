@@ -106,15 +106,15 @@ Output:
 
 #### Q1:
 Make `file2.sh` executable for everyone but writable **only** by the owner.  
-✅ Expected final: `-rwxr-xr-x`
+Expected final: `-rwxr-xr-x`
 
 #### Q2:
 Remove all permissions for “others” from `data/` directory.  
-✅ Hint: use `chmod o-rwx data`
+Hint: use `chmod o-rwx data`
 
 #### Q3:
 Give read-only permission to everyone for `notes.txt`.  
-✅ Expected: `-r--r--r--`
+Expected: `-r--r--r--`
 
 ---
 
