@@ -1,0 +1,175 @@
+# Linux Shell Scripting – Part 1 Labs & Assignments
+
+##  Objective
+Learn the basics of shell scripting: variables, input/output, conditionals, exit status, and automation.
+
+---
+
+##  Why Shell Scripting?
+Shell scripting automates repetitive Linux tasks. Instead of typing multiple commands manually, scripts allow you to write once and execute anytime.
+
+**Advantages:**
+- Saves time
+- Reduces human errors
+- Enables automation and scheduling (cron jobs)
+- Portable across systems
+
+---
+
+## Basic Structure of a Shell Script
+
+Every script starts with a **shebang** line:
+```bash
+#!/bin/bash
+```
+
+Example:
+```bash
+#!/bin/bash
+echo "Hello, World!"
+```
+
+Make it executable:
+```bash
+chmod +x hello.sh
+./hello.sh
+```
+
+---
+
+## Variables, Input & Output
+
+### Example: Using Variables
+```bash
+#!/bin/bash
+name="Rashi"
+echo "Hello $name, welcome to Linux scripting!"
+```
+
+### Example: Taking Input
+```bash
+#!/bin/bash
+echo "Enter your name:"
+read username
+echo "Hello $username!"
+```
+
+---
+
+##  Conditionals (if, else, elif)
+
+Example:
+```bash
+#!/bin/bash
+echo "Enter a number:"
+read num
+
+if [ $num -gt 10 ]; then
+    echo "Number is greater than 10"
+elif [ $num -eq 10 ]; then
+    echo "Number is equal to 10"
+else
+    echo "Number is less than 10"
+fi
+```
+
+---
+
+## Exit Status
+
+Each command returns an exit code (`$?`):
+- 0 → success
+- Non-zero → failure
+
+Example:
+```bash
+#!/bin/bash
+ls /tmp
+echo "Exit status: $?"
+ls /notexist
+echo "Exit status: $?"
+```
+
+---
+
+## Command Substitution
+
+Use `$(command)` to capture output inside echo statements.
+
+Example:
+```bash
+#!/bin/bash
+echo "Hostname: $(hostname)"
+echo "Date: $(date)"
+echo "Uptime: $(uptime -p)"
+echo "Disk Usage:"
+df -h | head -n 5
+```
+
+---
+
+##  LAB EXERCISES
+
+###  **Lab 1: Hello Script**
+Create `hello.sh` that prints your name, date, and system uptime.
+
+###  **Lab 2: User Input**
+Write a script that asks for a filename and checks if it exists.
+```bash
+#!/bin/bash
+echo "Enter filename:"
+read file
+if [ -f "$file" ]; then
+    echo "File exists!"
+else
+    echo "File not found!"
+fi
+```
+
+###  **Lab 3: Simple Calculator**
+Ask user for two numbers and add them.
+```bash
+#!/bin/bash
+read -p "Enter first number: " a
+read -p "Enter second number: " b
+sum=$((a+b))
+echo "Sum is: $sum"
+```
+
+###  **Lab 4: System Information Script**
+```bash
+#!/bin/bash
+echo "===== System Information ====="
+echo "Hostname: $(hostname)"
+echo "Date: $(date)"
+echo "Uptime: $(uptime -p)"
+echo ""
+echo "Disk Usage:"
+df -h | head -n 5
+```
+
+---
+
+##  **Assignment 5: Backup Automation**
+Write a shell script that:
+1. Takes a folder name as input  
+2. Compresses it using `tar -czf`  
+3. Moves it to `/tmp/backups`  
+4. Prints success or failure message depending on the exit status.
+
+**Hint:**
+```bash
+#!/bin/bash
+read -p "Enter folder name to backup: " folder
+backup_name="${folder}_$(date +%F).tar.gz"
+mkdir -p /tmp/backups
+
+tar -czf /tmp/backups/$backup_name $folder
+if [ $? -eq 0 ]; then
+    echo "Backup successful: /tmp/backups/$backup_name"
+else
+    echo "Backup failed!"
+fi
+```
+
+---
